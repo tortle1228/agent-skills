@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Instructions"
+  short_description: "Create, audit, slim, and sync AGENTS.md and agent rule files"
+  default_prompt: "Use $project-instructions to audit this repository's agent instructions and propose a slimmer, synchronized setup."

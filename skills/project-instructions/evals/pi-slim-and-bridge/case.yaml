@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: pi-slim-and-bridge
+expected_outcome: |
+  AGENTS.md becomes the single source of truth and is shorter: stale commands and paths are removed or corrected (npm install -> pnpm install, the non-existent e2e script and legacy router path), formatting rules and generic filler are dropped (formatting left to the linter), and the genuinely useful rules (verified commands, the api -> services -> db boundary, the migrations warning) are kept. CLAUDE.md is reduced to a bridge that imports AGENTS.md. The agent re-checks commands against package.json and reports what changed.
+context:
+  scaffold_script: place-files.sh

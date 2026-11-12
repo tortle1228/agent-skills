@@ -1,0 +1,3 @@
+# settle
+
+Bill splitting helpers.

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: pi-init-from-repo
+expected_outcome: |
+  A short root AGENTS.md is created from repository evidence: the uv-based install, test, lint and format commands that actually work here, the src layout and the rule that money is handled with Decimal (visible in the code), and nothing generic. CLAUDE.md is a one-line bridge importing AGENTS.md. The agent runs at least one listed command to confirm it works.
+context:
+  scaffold_script: place-files.sh
