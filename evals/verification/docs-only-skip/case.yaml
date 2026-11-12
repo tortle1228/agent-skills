@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: docs-only-skip
+expected_outcome: |
+      Fixes the README wording and reports briefly. Recognizes the change has no runtime surface: says no runtime check applies (SKIP) and does not launch the app or run unrelated checks. Short reply in Korean.
+context:
+  scaffold_script: place-files.sh

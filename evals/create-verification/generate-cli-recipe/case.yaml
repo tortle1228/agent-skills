@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: generate-cli-recipe
+expected_outcome: |
+      Writes a project-local verify skill (for example .claude/skills/verify-todo/SKILL.md) with valid frontmatter and Launch, Doctor, Drive, Evidence, and Cleanup sections using this repo's real commands (todo.py add, list, done, TODO_FILE isolation), plus a features/ folder with an index and at least three feature files. Then runs the recipe once, drives at least one feature, and confirms the evidence file still exists after cleanup. Shows that the generated check fails on a deliberately broken scratch copy of todo.py, then discards the copy. Does not edit the project's own todo.py. Report in Korean.
+context:
+  scaffold_script: place-files.sh
