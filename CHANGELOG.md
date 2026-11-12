@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- project-bootstrap: the audit script no longer fails with "unbound variable" under bash 3.2, the default shell on macOS.
+
 ## 0.1.0
 
 First release.
