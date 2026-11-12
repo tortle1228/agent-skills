@@ -1,0 +1,59 @@
+diff --git a/shop/orders.py b/shop/orders.py
+index ce02320..54f0106 100644
+--- a/shop/orders.py
++++ b/shop/orders.py
+@@ -6,3 +6,34 @@ def add_order(conn, customer, amount):
+     )
+     conn.commit()
+     return cur.lastrowid
++
++
++class OrderQuery:
++    """Base class for order lookups."""
++
++    def run(self, conn, customer):
++        raise NotImplementedError
++
++
++class CustomerOrderQuery(OrderQuery):
++    def run(self, conn, customer):
++        rows = conn.execute(
++            f"SELECT id, customer, amount FROM orders WHERE customer = '{customer}' ORDER BY id"
++        )
++        return [dict(id=r[0], customer=r[1], amount=r[2]) for r in rows]
++
++
++class OrderQueryFactory:
++    @staticmethod
++    def create(kind="customer"):
++        if kind == "customer":
++            return CustomerOrderQuery()
++        raise ValueError(kind)
++
++
++def orders_page(conn, customer, page, size=10):
++    """Return one page (1-based) of a customer's orders and the page count."""
++    orders = OrderQueryFactory.create().run(conn, customer)
++    pages = len(orders) // size
++    start = (page - 1) * size
++    return orders[start:start + size], pages
+diff --git a/tests/test_orders.py b/tests/test_orders.py
+index 91d2599..f85d0e2 100644
+--- a/tests/test_orders.py
++++ b/tests/test_orders.py
+@@ -7,3 +7,15 @@ from shop.orders import add_order
+ def test_add_order_rejects_zero():
+     with pytest.raises(ValueError):
+         add_order(connect(), "kim", 0)
++
++
++from shop.orders import orders_page
++
++
++def test_orders_page_first_page():
++    conn = connect()
++    for i in range(20):
++        add_order(conn, "kim", 1000 + i)
++    items, pages = orders_page(conn, "kim", 1)
++    assert len(items) == 10
++    assert pages == 2

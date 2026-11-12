@@ -1,0 +1,30 @@
+diff --git a/shop/orders.py b/shop/orders.py
+index ce02320..b02f254 100644
+--- a/shop/orders.py
++++ b/shop/orders.py
+@@ -6,3 +6,8 @@ def add_order(conn, customer, amount):
+     )
+     conn.commit()
+     return cur.lastrowid
++
++
++def format_won(amount):
++    """Format an integer amount as Korean won, e.g. 12000 -> '12,000원'."""
++    return f"{amount:,}원"
+diff --git a/tests/test_orders.py b/tests/test_orders.py
+index 91d2599..eb04516 100644
+--- a/tests/test_orders.py
++++ b/tests/test_orders.py
+@@ -7,3 +7,12 @@ from shop.orders import add_order
+ def test_add_order_rejects_zero():
+     with pytest.raises(ValueError):
+         add_order(connect(), "kim", 0)
++
++
++from shop.orders import format_won
++
++
++def test_format_won():
++    assert format_won(12000) == "12,000원"
++    assert format_won(0) == "0원"
++    assert format_won(-500) == "-500원"

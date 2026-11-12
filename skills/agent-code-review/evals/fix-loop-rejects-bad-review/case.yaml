@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: fix-loop-rejects-bad-review
+expected_outcome: |
+      Verifies each bot comment against the code: fixes the negative total (1) and removes the DEBUG print (2); rejects comment 3 because unknown codes already fall back via COUPONS.get (a test proves it) and rejects comment 4 as speculative layers for two coupon kinds, giving a reason for each in the rejected line. No new classes are added; tests pass; report in Korean with iterations and fixed lines.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: review-only-planted-bugs
+expected_outcome: |
+      A report-only review in the ponytail report format (What this change does, numbered findings with What this is / Problem / Fix / If we skip it, Verdict). It finds the SQL injection in the f-string query, the page count that drops the last partial page (len // size), and the single-implementation OrderQuery/Factory layers as removable. No repository file is modified.
+context:
+  scaffold_script: place-files.sh

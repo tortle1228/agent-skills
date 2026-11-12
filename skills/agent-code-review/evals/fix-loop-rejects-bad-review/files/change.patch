@@ -1,0 +1,55 @@
+diff --git a/shop/cart.py b/shop/cart.py
+index c3947d3..5b27b05 100644
+--- a/shop/cart.py
++++ b/shop/cart.py
+@@ -1,2 +1,10 @@
+-def cart_total(prices):
+-    return sum(prices)
++from shop.coupons import coupon_value
++
++
++def cart_total(prices, coupon=None):
++    total = sum(prices)
++    if coupon:
++        discount = coupon_value(coupon, total)
++        print("DEBUG discount", coupon, discount)
++        total = total - discount
++    return total
+diff --git a/shop/coupons.py b/shop/coupons.py
+new file mode 100644
+index 0000000..d4925a4
+--- /dev/null
++++ b/shop/coupons.py
+@@ -0,0 +1,12 @@
++COUPONS = {
++    "WELCOME10": ("percent", 10),
++    "SAVE5000": ("fixed", 5000),
++}
++
++
++def coupon_value(code, total):
++    """Discount in won for a coupon code. Unknown codes give no discount."""
++    kind, value = COUPONS.get(code, ("fixed", 0))
++    if kind == "percent":
++        return total * value // 100
++    return value
+diff --git a/tests/test_cart.py b/tests/test_cart.py
+index 83d8b97..17e2bc0 100644
+--- a/tests/test_cart.py
++++ b/tests/test_cart.py
+@@ -3,3 +3,15 @@ from shop.cart import cart_total
+ 
+ def test_total():
+     assert cart_total([1000, 2000]) == 3000
++
++
++def test_fixed_coupon():
++    assert cart_total([10000], "SAVE5000") == 5000
++
++
++def test_percent_coupon():
++    assert cart_total([10000], "WELCOME10") == 9000
++
++
++def test_unknown_coupon():
++    assert cart_total([1000], "NOPE") == 1000

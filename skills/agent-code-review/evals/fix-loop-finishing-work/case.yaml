@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: fix-loop-finishing-work
+expected_outcome: |
+      Runs the fix loop: fixes the negative total when a fixed coupon exceeds the cart (e.g. 3000 won cart with SAVE5000), the float result from the percent coupon (cart_total returns 9000.0 / non-integer won), and removes the leftover DEBUG print; adds a test for the over-discount case; tests pass afterwards. Ends with the ponytail report plus Iterations: N/3 (N <= 3) and Fixed: lines.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,12 @@
+diff --git a/README.md b/README.md
+index cabba13..f0b09ae 100644
+--- a/README.md
++++ b/README.md
+@@ -5,5 +5,5 @@ Run tests with `pytest -q`.
+ 
+ ## Usage
+ 
+-Create a order with `add_order(conn, customer, amount)`. The amount must be
+-a postive nubmer of won.
++Create an order with `add_order(conn, customer, amount)`. The amount must be
++a positive number of won.

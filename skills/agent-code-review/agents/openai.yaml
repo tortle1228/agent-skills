@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Code Review"
+  short_description: "Review code with an isolated reviewer and a plain-language ship/fix report"
+  default_prompt: "Use $agent-code-review to review the current changes."

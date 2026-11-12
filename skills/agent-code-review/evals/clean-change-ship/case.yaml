@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: clean-change-ship
+expected_outcome: |
+      A report-only review that concludes the change is fine: What this change does, then Looks good. Ship. (or Verdict: Ship.) with no Must fix findings and no invented problems. No repository file is modified.
+context:
+  scaffold_script: place-files.sh

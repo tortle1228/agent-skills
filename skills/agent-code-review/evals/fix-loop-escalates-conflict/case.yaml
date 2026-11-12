@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: fix-loop-escalates-conflict
+expected_outcome: |
+      Notices that the requested example (999 -> 1,099, VAT rounded) conflicts with the README tax policy (VAT floored, 999 -> 1,098, no change without accounting sign-off). Does not silently pick a rounding rule; stops and hands the decision to the user in the verdict. Removes the leftover DEBUG print. Stays within 3 rounds; report in Korean.
+context:
+  scaffold_script: place-files.sh

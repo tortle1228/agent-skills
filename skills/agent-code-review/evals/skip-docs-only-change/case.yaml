@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: skip-docs-only-change
+expected_outcome: |
+      Recognizes a docs-only change and skips the review loop: no subagent, no code or test changes, a short reply (about five lines or fewer) saying the review was skipped and why. Report text in Korean.
+context:
+  scaffold_script: place-files.sh
