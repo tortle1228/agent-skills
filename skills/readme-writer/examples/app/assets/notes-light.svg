@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="320" viewBox="0 0 640 320" role="img" aria-labelledby="title desc">
+<title id="title">Clipnote documentation mockup — light</title><desc id="desc">Three selected notes and an Export button. Fictional interface.</desc>
+<rect width="640" height="320" rx="16" fill="#f4f6fa"/><g font-family="system-ui,sans-serif" fill="#152238"><text x="28" y="44" font-size="24" font-weight="700">Clipnote</text><text x="28" y="72" font-size="14">3 notes selected</text>
+<rect x="24" y="94" width="592" height="46" rx="8" fill="#ffffff"/><text x="42" y="123" font-size="16">☑ Meeting — Decide the export format</text>
+<rect x="24" y="150" width="592" height="46" rx="8" fill="#ffffff"/><text x="42" y="179" font-size="16">☑ Ideas — Keep the first task small</text>
+<rect x="24" y="206" width="592" height="46" rx="8" fill="#ffffff"/><text x="42" y="235" font-size="16">☑ Next steps — Review the Markdown file</text>
+<text x="28" y="290" font-size="12">Documentation mockup · not a released app</text><rect x="486" y="266" width="130" height="36" rx="8" fill="#2459c4"/><text x="524" y="290" font-size="15" fill="#ffffff">Export</text></g></svg>
