@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- Releases are now published to npm from GitHub Actions with provenance.
+
 ## 0.1.2
 
 - Eval cases moved to `evals/<skill>/` so Skills CLI installs no longer include test prompts and fixtures.
