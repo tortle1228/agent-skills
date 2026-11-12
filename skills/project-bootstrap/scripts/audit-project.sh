@@ -49,7 +49,8 @@ check_any() {
       fi
     done
   done
-  found+=("${EMBEDDED[@]}")
+  # ${arr[@]+...} keeps bash 3.2 (macOS) from failing on an empty array under set -u.
+  found+=(${EMBEDDED[@]+"${EMBEDDED[@]}"})
   EMBEDDED=()
   if (( ${#found[@]} > 0 )); then
     printf "  [OK]    %-32s -> %s\n" "$label" "${found[*]}"
