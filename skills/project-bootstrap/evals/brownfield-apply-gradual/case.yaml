@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: brownfield-apply-gradual
+expected_outcome: |
+  The agent adds a linter and stricter TypeScript checking to the existing repo in a way that does not break it: strictness is introduced gradually (baseline, per-directory or per-file opt-in, warnings first, or similar), the existing test still passes, lint and typecheck are wired into package.json scripts that actually run clean, and the final report lists the commands run with results and the remaining debt.
+context:
+  scaffold_script: place-files.sh

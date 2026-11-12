@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: stack-advisory
+expected_outcome: |
+  The answer compares FastAPI, Django REST Framework and Litestar against explicit weighted criteria tied to the team's situation (3 people, one with Django experience, heavy async outbound calls, PostgreSQL), recommends exactly one, states when that choice would be the wrong one, and writes an ADR under docs/adr/ with context, considered options, decision and trade-offs.

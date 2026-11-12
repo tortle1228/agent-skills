@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Bootstrap"
+  short_description: "Start new projects and audit repo engineering setup"
+  default_prompt: "Use $project-bootstrap to set up this project or find what its engineering setup is missing."

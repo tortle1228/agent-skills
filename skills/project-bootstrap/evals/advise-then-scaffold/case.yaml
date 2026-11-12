@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: advise-then-scaffold
+expected_outcome: |
+  The agent first recommends one crate each for argument parsing, error handling and logging with brief reasons (and when not to use them), then scaffolds a Rust CLI whose Cargo.toml actually uses exactly those crates. It runs cargo build, cargo clippy and cargo test successfully, records the choice (ADR or README section), and keeps the setup light for a small CLI.

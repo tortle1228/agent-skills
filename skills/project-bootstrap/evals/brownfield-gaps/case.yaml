@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: brownfield-gaps
+expected_outcome: |
+  audit-report.md lists the repository's engineering gaps grouped by priority. The committed .env with a live-looking secret and the missing .gitignore entry are top priority, along with the unpinned dependencies without a lockfile; missing tests, linter and CI follow. It proposes a phased rollout and leaves every repository file unchanged.
+context:
+  scaffold_script: place-files.sh
