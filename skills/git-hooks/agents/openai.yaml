@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Hooks"
+  short_description: "Set up, audit, and verify fast Git hooks"
+  default_prompt: "Use $git-hooks to set up or audit this repository's Git hooks and verify they work."

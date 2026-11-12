@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: gh-precommit-secrets
+expected_outcome: |
+  A pre-commit hook that teammates get through the repo (core.hooksPath with a committed .githooks/ plus a setup step, or a Node hook manager wired through package.json prepare) runs ESLint on staged files only and blocks staged secrets. The agent demonstrates in the real repo that a commit adding a fake secret is rejected and a clean commit passes, explains the tool choice, and mentions running the same checks in CI. gitleaks is not installed, so a regex fallback or an explicit note is needed.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+# Language-agnostic post-checkout hook (non-blocking environment sync reminder)
+set -eu
+
+PREV_HEAD="${1:-}"
+NEW_HEAD="${2:-}"
+IS_BRANCH_CHECKOUT="${3:-0}"
+ZERO_OID="0000000000000000000000000000000000000000"
+
+# Only run on branch switch (flag = 1) between two valid commits
+if [ "$IS_BRANCH_CHECKOUT" != "1" ] || [ -z "$PREV_HEAD" ] || [ -z "$NEW_HEAD" ]; then
+  exit 0
+fi
+if [ "$PREV_HEAD" = "$NEW_HEAD" ] || [ "$PREV_HEAD" = "$ZERO_OID" ]; then
+  exit 0
+fi
+
+CHANGED=$(git -c core.quotepath=false diff-tree -r --name-only --no-commit-id "$PREV_HEAD" "$NEW_HEAD" 2>/dev/null || true)
+if [ -z "$CHANGED" ]; then
+  exit 0
+fi
+
+LOCK_CHANGES=$(printf '%s\n' "$CHANGED" | grep -E '(^|/)(package\.json|package-lock\.json|pnpm-lock\.yaml|yarn\.lock|bun\.lockb?|pyproject\.toml|uv\.lock|poetry\.lock|requirements.*\.txt|go\.mod|go\.sum|Cargo\.lock|Gemfile\.lock|composer\.lock)$' || true)
+if [ -n "$LOCK_CHANGES" ]; then
+  printf '\n[post-checkout] Notice: dependency manifests changed with this branch switch:\n'
+  printf '%s\n' "$LOCK_CHANGES" | sed 's/^/  - /'
+  printf '  -> Run your package manager install command (npm ci / pnpm i / uv sync / go mod download, etc.).\n\n'
+fi
+
+MIGRATION_CHANGES=$(printf '%s\n' "$CHANGED" | grep -E '(migrations/|prisma/schema\.prisma|db/migrate/)' || true)
+if [ -n "$MIGRATION_CHANGES" ]; then
+  printf '\n[post-checkout] Notice: database schema/migration changes detected.\n\n'
+fi
+
+exit 0

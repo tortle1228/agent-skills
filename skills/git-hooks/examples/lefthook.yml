@@ -1,0 +1,29 @@
+# Example language-agnostic, polyglot Lefthook configuration (lefthook.yml)
+# Install: lefthook install
+
+pre-commit:
+  parallel: true
+  commands:
+    secret-scan:
+      run: gitleaks protect --staged --redact --verbose
+    conflict-markers:
+      run: git diff --cached -S"<<<<<<<" --check
+    # Uncomment only the language blocks your project stack needs:
+    # js-ts-lint:
+    #   glob: "*.{js,jsx,ts,tsx,json,md}"
+    #   run: npx biome check --write {staged_files}
+    #   stage_fixed: true
+    # python-lint:
+    #   glob: "*.py"
+    #   run: uv run ruff check --fix {staged_files} && uv run ruff format {staged_files}
+    #   stage_fixed: true
+
+commit-msg:
+  commands:
+    conventional-commit:
+      run: sh .githooks/commit-msg {1}
+
+pre-push:
+  commands:
+    branch-and-wip-guard:
+      run: sh .githooks/pre-push {1} {2}

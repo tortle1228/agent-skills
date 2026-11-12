@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+# Language-agnostic post-merge hook (non-blocking environment sync reminder after git pull/merge)
+set -eu
+
+if ! git rev-parse --verify ORIG_HEAD >/dev/null 2>&1; then
+  exit 0
+fi
+
+CHANGED=$(git -c core.quotepath=false diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD 2>/dev/null || true)
+if [ -z "$CHANGED" ]; then
+  exit 0
+fi
+
+LOCK_CHANGES=$(printf '%s\n' "$CHANGED" | grep -E '(^|/)(package\.json|package-lock\.json|pnpm-lock\.yaml|yarn\.lock|bun\.lockb?|pyproject\.toml|uv\.lock|poetry\.lock|requirements.*\.txt|go\.mod|go\.sum|Cargo\.lock|Gemfile\.lock|composer\.lock)$' || true)
+if [ -n "$LOCK_CHANGES" ]; then
+  printf '\n[post-merge] Notice: merged (pulled) commits change dependency files:\n'
+  printf '%s\n' "$LOCK_CHANGES" | sed 's/^/  - /'
+  printf '  -> Sync your local dependencies.\n\n'
+fi
+
+MIGRATION_CHANGES=$(printf '%s\n' "$CHANGED" | grep -E '(migrations/|prisma/schema\.prisma|db/migrate/)' || true)
+if [ -n "$MIGRATION_CHANGES" ]; then
+  printf '\n[post-merge] Notice: merged commits include DB migration changes.\n\n'
+fi
+
+exit 0

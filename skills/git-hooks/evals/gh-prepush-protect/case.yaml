@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: gh-prepush-protect
+expected_outcome: |
+  A shared pre-push hook blocks pushes to main (with an explicit emergency override) and blocks pushes whose new commits include WIP or fixup!/squash! commits. The agent demonstrates against a real local bare remote: direct push to main blocked, a feature branch with a fixup commit blocked, the cleaned branch allowed, including the first push of a new branch (zero remote SHA). It explains that server-side branch protection is still needed.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: gh-commit-msg-korean
+expected_outcome: |
+  A commit-msg hook enforces Conventional Commits types, accepts Korean and English subjects, and limits subject length by characters rather than bytes. The agent demonstrates with real commits that a valid Korean message passes, a non-conventional message is rejected, and an overlong subject is rejected, while a Korean subject that is long in bytes but short in characters passes. Merge/revert messages are not broken.
+context:
+  scaffold_script: place-files.sh

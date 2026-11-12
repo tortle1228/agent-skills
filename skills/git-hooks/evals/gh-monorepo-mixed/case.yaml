@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: gh-monorepo-mixed
+expected_outcome: |
+  A shared pre-commit setup runs Ruff only for staged backend Python files and ESLint only for staged frontend JS files. The agent shows that a backend-only commit does not run ESLint (and vice versa), that a lint violation on each side blocks the commit, explains why it chose its hook tool for a polyglot repo, and documents how teammates enable it.
+context:
+  scaffold_script: place-files.sh

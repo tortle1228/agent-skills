@@ -1,0 +1,56 @@
+#!/usr/bin/env sh
+# Language-agnostic commit-msg hook (Conventional Commits + UTF-8 length check)
+set -eu
+
+MSG_FILE="$1"
+WARN_LEN="${GIT_HOOK_WARN_HEADER_LEN:-72}"
+MAX_LEN="${GIT_HOOK_MAX_HEADER_LEN:-100}"
+
+# Extract first non-comment, non-empty line as commit header
+HEADER=$(grep -v '^[[:space:]]*#' "$MSG_FILE" | sed '/^[[:space:]]*$/d' | head -n 1 || true)
+
+if [ -z "$HEADER" ]; then
+  printf '[commit-msg] ERROR: commit message is empty.\n' >&2
+  exit 1
+fi
+
+# Allow standard Git auto-generated messages
+case "$HEADER" in
+  "Merge "*|"Revert \""*|"fixup! "*|"squash! "*|"amend! "*)
+    exit 0
+    ;;
+esac
+
+# Validate Conventional Commits format (the description may be any non-ASCII text, e.g. Korean, or English)
+CONVENTIONAL_REGEX='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([A-Za-z0-9._/-]+\))?!?: [^[:space:]].+'
+if ! printf '%s\n' "$HEADER" | grep -Eq "$CONVENTIONAL_REGEX"; then
+  printf '\n[commit-msg] ERROR: commit message does not follow Conventional Commits.\n' >&2
+  printf '  Subject : "%s"\n\n' "$HEADER" >&2
+  printf '  Format  : <type>[optional (scope)][!]: <description>\n' >&2
+  printf '  Types   : feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert\n' >&2
+  printf '  Examples:\n' >&2
+  printf '    - feat(auth): add social login token refresh\n' >&2
+  printf '    - fix: prevent crash on empty input\n' >&2
+  printf '    - docs: update Git hooks onboarding guide\n\n' >&2
+  exit 1
+fi
+
+# Accurate UTF-8 character count (handles multi-byte Korean characters properly)
+if locale -a 2>/dev/null | grep -qi '^C\.utf-\?8$'; then
+  # LC_ALL must apply to wc, not printf, or a C/POSIX locale counts bytes instead of characters
+  CHAR_LEN=$(printf '%s' "$HEADER" | LC_ALL=C.UTF-8 wc -m | tr -d '[:space:]')
+else
+  CHAR_LEN=$(printf '%s' "$HEADER" | wc -m | tr -d '[:space:]')
+fi
+
+if [ "$CHAR_LEN" -gt "$MAX_LEN" ]; then
+  printf '\n[commit-msg] ERROR: commit subject is too long (%s chars > max %s).\n' "$CHAR_LEN" "$MAX_LEN" >&2
+  printf '  -> Keep only the summary in the subject and move details to the body.\n\n' >&2
+  exit 1
+fi
+
+if [ "$CHAR_LEN" -gt "$WARN_LEN" ]; then
+  printf '[commit-msg] WARN: commit subject is %s chars (recommended: %s or fewer).\n' "$CHAR_LEN" "$WARN_LEN" >&2
+fi
+
+exit 0

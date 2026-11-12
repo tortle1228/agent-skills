@@ -1,0 +1,85 @@
+#!/usr/bin/env sh
+# Language-agnostic pre-commit hook (staged index-only checks)
+# Bypass in emergencies only: git commit --no-verify
+set -eu
+
+# Ensure UTF-8 filenames are not octal-quoted by Git
+STAGED_FILES=$(git -c core.quotepath=false diff --cached --name-only --diff-filter=ACMR)
+
+if [ -z "$STAGED_FILES" ]; then
+  exit 0
+fi
+
+MAX_KB="${GIT_HOOK_MAX_FILE_SIZE_KB:-5120}"
+MAX_BYTES=$((MAX_KB * 1024))
+FAILED=0
+
+# 1. Case-insensitive filename collision check (macOS/Windows safety)
+COLLISIONS=$(git -c core.quotepath=false ls-files | tr '[:upper:]' '[:lower:]' | sort | uniq -d)
+if [ -n "$COLLISIONS" ]; then
+  printf '\n[pre-commit] ERROR: filenames that differ only in case detected:\n%s\n' "$COLLISIONS" >&2
+  FAILED=1
+fi
+
+# 2. Optional Gitleaks staged scan (if installed)
+if command -v gitleaks >/dev/null 2>&1; then
+  if ! gitleaks protect --staged --redact --no-banner; then
+    printf '\n[pre-commit] ERROR: gitleaks detected a possible secret leak.\n' >&2
+    FAILED=1
+  fi
+fi
+
+# 3. Per-file staged index blob checks (never inspects unstaged working tree edits)
+OLD_IFS="$IFS"
+IFS='
+'
+for file in $STAGED_FILES; do
+  IFS="$OLD_IFS"
+
+  # 3a. Sensitive credential/env file check
+  if [ "${GIT_HOOK_ALLOW_SECRET_FILES:-0}" != "1" ]; then
+    base=$(basename "$file")
+    case "$base" in
+      .env.example|.env.sample|.env.template|.env.schema|.env.test)
+        ;;
+      .env|.env.*|*.pem|*.key|*.p12|*.pfx|id_rsa|id_ed25519|*credentials*.json)
+        printf '[pre-commit] ERROR: sensitive file blocked from commit: %s\n' "$file" >&2
+        printf '  -> Replace it with an example file (.env.example) or add it to .gitignore.\n' >&2
+        FAILED=1
+        ;;
+    esac
+  fi
+
+  # 3b. Large blob guard (reads blob metadata from Git index without loading full content)
+  blob_size=$(git cat-file -s :"$file" 2>/dev/null || echo 0)
+  if [ "$blob_size" -gt "$MAX_BYTES" ]; then
+    size_kb=$((blob_size / 1024))
+    printf '[pre-commit] ERROR: large file blocked (%s KB > %s KB limit): %s\n' "$size_kb" "$MAX_KB" "$file" >&2
+    printf '  -> Use Git LFS or adjust the GIT_HOOK_MAX_FILE_SIZE_KB environment variable.\n' >&2
+    FAILED=1
+  fi
+
+  # 3c. Merge conflict markers in staged blob
+  if git show :"$file" 2>/dev/null | grep -Eq '^(<{7} |\|{7} |={7}$|>{7} )'; then
+    printf '[pre-commit] ERROR: unresolved merge conflict markers (<<<<<<< / ======= / >>>>>>>) remain: %s\n' "$file" >&2
+    FAILED=1
+  fi
+done
+IFS="$OLD_IFS"
+
+# 4. Built-in regex secret scan on newly added staged lines
+SECRET_REGEX='(-----BEGIN (RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}|(ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{50,}|xox[baprs]-[0-9]{10,}-[A-Za-z0-9-]+|AIza[0-9A-Za-z_-]{35})'
+
+SECRET_HITS=$(git -c core.quotepath=false diff --cached -U0 | grep -E '^\+[^+]' | grep -E "$SECRET_REGEX" || true)
+if [ -n "$SECRET_HITS" ]; then
+  printf '\n[pre-commit] ERROR: hardcoded secret/private key pattern detected in staged changes.\n' >&2
+  printf '  -> Move the secret to an environment variable, then git add again.\n' >&2
+  FAILED=1
+fi
+
+if [ "$FAILED" -ne 0 ]; then
+  printf '\n[pre-commit] Commit aborted. Fix the issues above and try again.\n' >&2
+  exit 1
+fi
+
+exit 0

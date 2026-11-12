@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: gh-partial-staging-autofix
+expected_outcome: |
+  A pre-commit hook formats staged Python files with ruff format and includes the formatted result in the commit, without leaking unstaged hunks of a partially staged file into the commit and without losing them from the working tree. The agent demonstrates this with a real partially staged file and explains the mechanism.
+context:
+  scaffold_script: place-files.sh

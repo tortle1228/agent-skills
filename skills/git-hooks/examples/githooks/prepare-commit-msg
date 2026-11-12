@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+# Language-agnostic prepare-commit-msg hook
+# Automatically appends issue ticket trailer (Refs: ABC-123) extracted from branch name.
+set -eu
+
+MSG_FILE="$1"
+COMMIT_SOURCE="${2:-}"
+
+# Skip during merge, squash, or commit (--amend / -c / -C) to avoid duplicate pollution
+case "$COMMIT_SOURCE" in
+  merge|squash|commit)
+    exit 0
+    ;;
+esac
+
+BRANCH=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true)
+if [ -z "$BRANCH" ]; then
+  exit 0
+fi
+
+# Extract standard issue key like PROJ-123 or ABC-42 from branch name
+TICKET=$(printf '%s\n' "$BRANCH" | grep -Eo '[A-Z][A-Z0-9]+-[0-9]+' | head -n 1 || true)
+if [ -z "$TICKET" ]; then
+  exit 0
+fi
+
+# Skip if ticket is already mentioned anywhere in non-comment lines
+if grep -v '^[[:space:]]*#' "$MSG_FILE" | grep -Eq "(^|[^A-Za-z0-9])${TICKET}([^0-9]|$)"; then
+  exit 0
+fi
+
+TMP_FILE="${MSG_FILE}.tmp.$$"
+if grep -q '^[[:space:]]*#' "$MSG_FILE"; then
+  # Insert trailer right before the first comment line
+  awk -v trailer="Refs: ${TICKET}" '
+    !inserted && /^[[:space:]]*#/ {
+      print ""
+      print trailer
+      print ""
+      inserted = 1
+    }
+    { print }
+  ' "$MSG_FILE" > "$TMP_FILE"
+else
+  cat "$MSG_FILE" > "$TMP_FILE"
+  printf '\nRefs: %s\n' "$TICKET" >> "$TMP_FILE"
+fi
+
+mv "$TMP_FILE" "$MSG_FILE"
+exit 0
