@@ -2,7 +2,7 @@
 
 [English](README.md) | [한국어](README.ko.md)
 
-코드 주변의 일상적인 엔지니어링 작업을 다루는 에이전트 스킬 5개입니다. 프로젝트 시작, 에이전트 지침, Git 훅, 코드 리뷰, README를 다룹니다. 전부 설치하거나 필요한 것만 골라 설치할 수 있습니다.
+코드 주변의 일상적인 엔지니어링 작업을 다루는 에이전트 스킬입니다. 프로젝트 시작, 에이전트 지침, Git 훅, 코드 리뷰, 검증, README를 다룹니다. 전부 설치하거나 필요한 것만 골라 설치할 수 있습니다.
 
 ## 스킬
 
@@ -13,8 +13,10 @@
 | [git-hooks](skills/git-hooks/README.md) | 팀이 함께 쓰는 빠른 pre-commit, commit-msg, pre-push 훅을 세팅하고 실제 커밋으로 검증합니다 |
 | [agent-code-review](skills/agent-code-review/README.md) | 분리된 리뷰어로 변경을 리뷰하고 쉬운 말로 된 배포/수정 판정을 받습니다. 횟수 제한이 있는 수정 루프도 지원합니다 |
 | [readme-writer](skills/readme-writer/README.md) | 저장소 근거를 바탕으로 README를 쓰고, 고치고, 번역합니다. 완성 예시와 템플릿이 들어 있습니다 |
+| [verification](skills/verification/README.md) | 에이전트가 작업을 끝났다, 고쳤다, 통과한다고 주장하기 전에 새로 실행한 증거를 요구하고 PASS/FAIL/BLOCKED/SKIP으로 판정합니다 |
+| [create-verification](skills/create-verification/README.md) | 앱을 띄우고 조작하는 프로젝트 로컬 `verify-<app>` 스킬을 만들고, 한 번 직접 실행해 증명합니다 |
 
-각 스킬은 혼자서도 동작합니다. project-bootstrap은 git-hooks와 project-instructions가 설치되어 있으면 Git 훅과 에이전트 지침을 그쪽에 맡기고, 없으면 최소한만 직접 처리합니다.
+각 스킬은 혼자서도 동작합니다. project-bootstrap은 git-hooks와 project-instructions가 설치되어 있으면 Git 훅과 에이전트 지침을 그쪽에 맡기고, 없으면 최소한만 직접 처리합니다. verification은 프로젝트에 create-verification이 만든 `verify-*` 스킬이 있으면 그것을 쓰고, 없어도 동작합니다.
 
 ## 지원 에이전트
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Verification"
+  short_description: "Generate a verify-<app> skill that launches and drives this repo's app"
+  default_prompt: "Use $create-verification to write a project-local verify skill for this repository and prove it by running it once."

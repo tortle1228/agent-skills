@@ -24,7 +24,7 @@ async function cli(home) {
 test('every skill folder is listed and installable', async t => {
   const { home } = await fixture(t);
   const skills = await listSkills(root);
-  assert.deepEqual(skills, ['agent-code-review', 'git-hooks', 'project-bootstrap', 'project-instructions', 'readme-writer']);
+  assert.deepEqual(skills, ['agent-code-review', 'create-verification', 'git-hooks', 'project-bootstrap', 'project-instructions', 'readme-writer', 'verification']);
   for (const name of skills) {
     const target = targetFor(home, 'claude-code', name);
     assert.equal(await install(root, name, target, '0.1.0'), 'Installed');
@@ -117,7 +117,7 @@ test('CLI help is non-mutating, validates input, and reports partial failure', a
   assert.equal(spawnSync(process.execPath, [...args, 'install', '--agent', 'codex', '--skill']).status, 1);
   const unknown = spawnSync(process.execPath, [...args, 'install', '--agent', 'codex', '--skill', 'nope'], { encoding: 'utf8' });
   assert.equal(unknown.status, 1);
-  assert.match(unknown.stderr, /Available: agent-code-review, git-hooks, project-bootstrap, project-instructions, readme-writer/);
+  assert.match(unknown.stderr, /Available: agent-code-review, create-verification, git-hooks, project-bootstrap, project-instructions, readme-writer, verification/);
   await assert.rejects(fs.stat(path.join(home, '.agents')), { code: 'ENOENT' });
   const blocked = targetFor(home, 'codex', skill);
   await fs.mkdir(blocked, { recursive: true });

@@ -2,7 +2,7 @@
 
 [English](README.md) | [한국어](README.ko.md)
 
-Five agent skills that cover the everyday engineering around your code: starting projects, agent instructions, Git hooks, code review, and READMEs. Install all of them or only the ones you want.
+Agent skills that cover the everyday engineering around your code: starting projects, agent instructions, Git hooks, code review, verification, and READMEs. Install all of them or only the ones you want.
 
 ## Skills
 
@@ -13,8 +13,10 @@ Five agent skills that cover the everyday engineering around your code: starting
 | [git-hooks](skills/git-hooks/README.md) | Set up fast pre-commit, commit-msg, and pre-push hooks that teammates share, verified with real commits |
 | [agent-code-review](skills/agent-code-review/README.md) | Review a change with an isolated reviewer and get a plain-language ship-or-fix report, optionally with a capped fix loop |
 | [readme-writer](skills/readme-writer/README.md) | Write, improve, or translate READMEs from repository evidence, with worked examples and templates |
+| [verification](skills/verification/README.md) | Require fresh evidence before the agent claims work is done, fixed, or passing, with a PASS/FAIL/BLOCKED/SKIP verdict |
+| [create-verification](skills/create-verification/README.md) | Generate a project-local `verify-<app>` skill that launches and drives the app, and prove it by running it once |
 
-Each skill works on its own. project-bootstrap hands Git hooks and agent instructions to git-hooks and project-instructions when they are installed, and does a minimal version itself when they are not.
+Each skill works on its own. project-bootstrap hands Git hooks and agent instructions to git-hooks and project-instructions when they are installed, and does a minimal version itself when they are not. verification uses a `verify-*` skill made by create-verification when the project has one, and works without it.
 
 ## Supported agents
 
