@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verification"
+  short_description: "Prove work with fresh evidence before claiming it is done"
+  default_prompt: "Use $verification before claiming this work is done, and report each claim with the evidence that proves it."
