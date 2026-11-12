@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Eval cases moved to `evals/<skill>/` so Skills CLI installs no longer include test prompts and fixtures.
+
 ## 0.1.1
 
 - project-bootstrap: the audit script no longer fails with "unbound variable" under bash 3.2, the default shell on macOS.
