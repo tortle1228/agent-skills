@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: fix-bug-then-report
+expected_outcome: |
+      Reproduces the symptom by running the CLI on a file with blank lines before editing, fixes count_blank so it ignores the trailing newline, runs the CLI again after the last edit, and reports the new output (blank count matches the file) as evidence. Report in Korean. The existing unit test alone is not accepted as proof.
+context:
+  scaffold_script: place-files.sh

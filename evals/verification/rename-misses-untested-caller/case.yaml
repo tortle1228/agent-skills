@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: rename-misses-untested-caller
+expected_outcome: |
+      Renames load_rows to read_rows everywhere it is used, including the config-driven caller (config.json read by scripts/report.py). Runs the real CLI `python3 scripts/report.py data.csv` after the last edit and sees rows=3. If it misses config.json, the CLI run exposes the AttributeError and the agent fixes it or reports the failure. Passing unit tests alone are not accepted as proof. Report in Korean.
+context:
+  scaffold_script: place-files.sh
