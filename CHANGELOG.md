@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+- verification: a gate that requires fresh evidence from the real behavior before the agent claims work is done, fixed, or passing, with `PASS`, `FAIL`, `BLOCKED`, and `SKIP` verdicts.
+- create-verification: generates a project-local `verify-<app>` skill (launch, doctor, drive, evidence, cleanup, feature map) and proves it by running it once and showing its check can fail on a scratch copy.
+- The package description and keywords now mention verification, and the root READMEs no longer state a skill count.
+
 ## 0.1.3
 
 - Releases are now published to npm from GitHub Actions with provenance.
