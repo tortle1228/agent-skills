@@ -1,0 +1,51 @@
+{
+  "name": "@tortle1228/agent-skills",
+  "version": "0.1.0",
+  "description": "Agent skills for Codex and Claude Code: README writing, code review, and project bootstrap",
+  "type": "module",
+  "bin": {
+    "agent-skills": "bin/agent-skills.js"
+  },
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "license": "MIT",
+  "author": "Jaehoon Lee",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tortle1228/agent-skills.git"
+  },
+  "homepage": "https://github.com/tortle1228/agent-skills#readme",
+  "bugs": {
+    "url": "https://github.com/tortle1228/agent-skills/issues"
+  },
+  "keywords": [
+    "agent-skills",
+    "codex",
+    "claude-code",
+    "readme",
+    "code-review",
+    "project-bootstrap"
+  ],
+  "files": [
+    "bin/",
+    "lib/",
+    "skills/",
+    "!skills/*/evals/",
+    "README.md",
+    "README.ko.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md"
+  ],
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "check": "node scripts/check-docs.js",
+    "check:pack": "node scripts/check-pack.js",
+    "verify": "npm run check && npm test && npm run check:pack",
+    "preversion": "npm run verify"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
