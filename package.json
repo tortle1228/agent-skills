@@ -1,6 +1,6 @@
 {
   "name": "@tortle1228/agent-skills",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Agent skills for Codex and Claude Code: README writing, code review, and project bootstrap",
   "type": "module",
   "bin": {
