@@ -15,7 +15,7 @@ npm run verify
 
 Each skill lives in `skills/<name>/` and must work on its own once installed: relative links may not leave the skill folder (the installer adds `LICENSE` at its root). Keep each `SKILL.md` concise and load supporting files selectively. Skill instructions and references are English; Korean appears only in `README.ko.md` files, `evals/`, and agent-code-review's Korean label examples. Keep each `README.ko.md` in sync with its `README.md`. Original materials are MIT; referenced projects retain their own terms. In readme-writer, preserve the distinction between fictional examples and working software.
 
-To add a skill, create `skills/<name>/SKILL.md` whose frontmatter `name` matches the folder, add `agents/openai.yaml` and README files, list it in the home READMEs, and update the expected skill lists in `test/` and `scripts/check-pack.js`. Behavior changes to a skill that has `evals/` need a rerun of those cases with and without the skill; `evals/` is never packaged or installed.
+To add a skill, create `skills/<name>/SKILL.md` whose frontmatter `name` matches the folder, add `agents/openai.yaml` and README files, list it in the home READMEs, and update the expected skill lists in `test/` and `scripts/check-pack.js`. Eval cases live in `evals/<skill>/` at the repository root, not inside the skill folder, because the Skills CLI copies a skill folder whole. Behavior changes to a skill with eval cases need a rerun of those cases with and without the skill; `evals/` is never packaged or installed.
 
 Use focused commits such as `docs:`, `feat:`, `fix:`, `test:`, `ci:`, or `chore:`. No commit hook or automatic version inference is required. Research additions should include source, observation date, and what the README teaches.
 

@@ -31,7 +31,6 @@
     "bin/",
     "lib/",
     "skills/",
-    "!skills/*/evals/",
     "README.md",
     "README.ko.md",
     "LICENSE",

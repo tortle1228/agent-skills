@@ -85,6 +85,10 @@ if (process.argv[2]) {
   };
   const count = await checkTree(root, boundaryFor, path.join(root, 'LICENSE'));
   for (const skill of skills) {
+    // Skills CLI copies the whole skill folder, so test cases must live in evals/<skill>/.
+    await fs.access(path.join(skillsRoot, skill, 'evals')).then(
+      () => { throw new Error(`Move skills/${skill}/evals to evals/${skill}/: skill folders are copied whole by some installers`); },
+      () => {});
     await checkSkillMd(path.join(skillsRoot, skill));
     await checkParity(path.join(skillsRoot, skill));
   }

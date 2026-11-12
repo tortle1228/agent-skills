@@ -64,6 +64,6 @@ npx @tortle1228/agent-skills@latest uninstall --agent all --skill git-hooks
 
 ## 개발과 라이선스
 
-[기여·릴리스 절차 — 영어](CONTRIBUTING.md)와 [변경 이력 — 영어](CHANGELOG.md)를 참고하세요. 스킬 동작은 각 스킬의 `evals/` 폴더에 있는 스킬 사용/미사용 비교 실행으로 확인합니다. 이 폴더는 패키지에 포함되지 않습니다.
+[기여·릴리스 절차 — 영어](CONTRIBUTING.md)와 [변경 이력 — 영어](CHANGELOG.md)를 참고하세요. 스킬 동작은 `evals/<skill>/`에 있는 스킬 사용/미사용 비교 실행으로 확인합니다. 이 폴더는 패키지에 포함되지 않습니다.
 
 직접 작성한 코드와 문서에는 [MIT 라이선스](LICENSE)가 적용됩니다. agent-code-review는 Ponytail의 자료를 MIT 라이선스에 따라 가져와 고쳤습니다. 해당 [NOTICE](skills/agent-code-review/NOTICE)를 참고하세요.

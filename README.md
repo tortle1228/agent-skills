@@ -64,6 +64,6 @@ Without `--skill`, uninstall removes every skill this installer manages. It neve
 
 ## Development and license
 
-See [contributing and release instructions](CONTRIBUTING.md) and the [changelog](CHANGELOG.md). Skill behavior is checked with with-skill and without-skill eval runs kept under each skill's `evals/` folder, which is not packaged.
+See [contributing and release instructions](CONTRIBUTING.md) and the [changelog](CHANGELOG.md). Skill behavior is checked with with-skill and without-skill eval runs kept in `evals/<skill>/`, which is not packaged.
 
 Original code and documents are under the [MIT License](LICENSE). agent-code-review adapts material from Ponytail under the MIT License; see its [NOTICE](skills/agent-code-review/NOTICE).

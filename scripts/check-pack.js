@@ -14,7 +14,7 @@ try {
   const pack = JSON.parse(output)[0];
   const allowed = /^(bin\/|lib\/|skills\/[a-z0-9-]+\/|README(?:\.ko)?\.md$|LICENSE$|CHANGELOG\.md$|CONTRIBUTING\.md$|package\.json$)/;
   for (const file of pack.files) {
-    assert.ok(allowed.test(file.path) && !file.path.includes('.DS_Store') && !/^skills\/[^/]+\/evals\//.test(file.path), `Unexpected packed file: ${file.path}`);
+    assert.ok(allowed.test(file.path) && !file.path.includes('.DS_Store'), `Unexpected packed file: ${file.path}`);
   }
   execFileSync('tar', ['-xzf', path.join(temporary, pack.filename), '-C', temporary]);
   const unpacked = path.join(temporary, 'package');
