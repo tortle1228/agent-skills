@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0
+
+- work-tracking: decides once whether a repo tracks work in GitHub Issues, a single `ROADMAP.md`, or commits only, asks where to record it, and writes a short "Work tracking" section after you confirm.
+- project-bootstrap: the scaffold now creates only `README.md` and `AGENTS.md`. ADRs, a `CLAUDE.md` bridge, `ROADMAP.md`, and research notes need a request. The Standard Production column of the checklist no longer requires Dockerfile, Renovate, structured logging, health endpoints, or compose, matching the preset text.
+- project-instructions: the `CLAUDE.md` bridge is added only when the team uses Claude Code.
+- git-hooks: installs `pre-commit` and `commit-msg` by default; `prepare-commit-msg`, `pre-push`, and the post-* hooks are added on request. Activation is recorded in an existing script, not a new document.
+- Migration: ask explicitly for an ADR, a bridge, or the extra hooks if you relied on them being created by default.
+
 ## 0.2.0
 
 - verification: a gate that requires fresh evidence from the real behavior before the agent claims work is done, fixed, or passing, with `PASS`, `FAIL`, `BLOCKED`, and `SKIP` verdicts.
