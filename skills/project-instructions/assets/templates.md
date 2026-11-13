@@ -27,7 +27,7 @@ Adapt these minimal templates during **Bootstrap (`init`)** and **Multi-Agent Sy
 - `<Env/Config rule: e.g., Access env vars exclusively via src/config/env.ts>`
 
 ## Reference Pointers
-- Architecture decisions: `docs/adr/`
+- `<Architecture decisions: docs/adr/, only if that directory exists>`
 - `<Domain workflow pointer: e.g., See docs/auth-flow.md before modifying session middleware>`
 ```
 

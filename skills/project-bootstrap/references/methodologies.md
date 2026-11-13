@@ -32,7 +32,7 @@ When comparing 2–4 candidate frameworks or libraries, score each (1–5) acros
 > **Time-boxed Spike Rule**: If two candidates remain tied on a high-risk assumption, run a strictly time-boxed PoC (4–16 hours) testing the hardest integration point before committing.
 
 ### 1.4 Architecture Decision Records (ADRs)
-Every major Day-1 choice (language, web framework, database, monorepo tool, auth provider) should produce a concise markdown file under `docs/adr/NNNN-title.md`:
+When real alternatives were compared for a major Day-1 choice (language, web framework, database, monorepo tool, auth provider) and the user wants the decision recorded, write a concise markdown file under `docs/adr/NNNN-title.md`. Otherwise record the reason in the commit body:
 - Prevents circular re-litigation 6 months later.
 - Gives humans and AI agents explicit context on *why* constraints exist.
 

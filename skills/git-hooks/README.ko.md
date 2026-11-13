@@ -23,9 +23,9 @@
 
 - **pre-commit:** staged 내용만 보는 시크릿 검사(gitleaks가 있으면 사용, 없으면 내장 패턴), `.env`·키 파일, 병합 충돌 표시, 큰 파일, 대소문자만 다른 파일 이름, 바뀐 파일 린트. 자동 수정 포매터를 넣을 때는 staged하지 않은 변경이 커밋에 섞이지 않게 하고, 일부만 stage한 파일로 이를 확인합니다.
 - **commit-msg:** Conventional Commits 형식. 제목 길이를 바이트가 아니라 글자 수로 세서 한글 제목이 일찍 막히지 않습니다.
-- **prepare-commit-msg:** 브랜치 이름의 이슈 키를 트레일러로 추가합니다.
-- **pre-push:** 명시적 우회가 있는 보호 브랜치, `WIP`/`fixup!` 커밋, 새 브랜치의 첫 push 처리.
-- **post-checkout / post-merge:** lockfile이나 마이그레이션이 바뀌면 알려 줍니다.
+- **prepare-commit-msg (요청 시):** 브랜치 이름의 이슈 키를 트레일러로 추가합니다.
+- **pre-push (요청 시):** 명시적 우회가 있는 보호 브랜치, `WIP`/`fixup!` 커밋, 새 브랜치의 첫 push 처리.
+- **post-checkout / post-merge (요청 시):** lockfile이나 마이그레이션이 바뀌면 알려 줍니다.
 
 Codex에서는 `$git-hooks`, Claude Code에서는 `/git-hooks`로 부르거나 할 일만 설명하면 됩니다. 훅별 인자와 흔한 실수는 [훅 카탈로그(영어)](references/hook-catalog.md)에 있습니다.
 

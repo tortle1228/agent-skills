@@ -29,7 +29,7 @@ Legend: `✅ Required` | `⚡ Recommended` | `➖ Optional / Skip`
 | Unified runtime/task manager (`mise.toml` / `Makefile` / `just`) | ⚡ | ✅ | ✅ | Standardized `dev`, `lint`, `test`, `build` commands |
 | `.editorconfig` + IDE workspace recommendations | ✅ | ✅ | ✅ | Consistent indentation, LF line endings, UTF-8 |
 | `.env.example` + **Fail-fast startup schema validation** | ✅ | ✅ | ✅ | Validate env vars on boot (`Zod`/`t3-env`, `Pydantic Settings`) |
-| Local backing services (`compose.yaml`) | ⚡ | ✅ | ✅ | One-command local Postgres/Redis/MinIO startup |
+| Local backing services (`compose.yaml`) | ⚡ | ⚡ | ✅ | One-command local Postgres/Redis/MinIO startup |
 | DevContainer (`.devcontainer/devcontainer.json`) | ➖ | ⚡ | ✅ | Instant reproducible container workspace |
 
 ## Pillar 4: Code Quality, Formatting & Static Analysis
@@ -63,7 +63,7 @@ Legend: `✅ Required` | `⚡ Recommended` | `➖ Optional / Skip`
 | :--- | :---: | :---: | :---: | :--- |
 | Secret leak scanner (`Gitleaks` / `TruffleHog`) | ⚡ | ✅ | ✅ | Run in pre-commit hook and CI |
 | Dependency vulnerability scan (SCA) | ➖ | ✅ | ✅ | `pnpm audit`, `pip-audit`/`uv`, `govulncheck`, `cargo-deny`, `Trivy` |
-| Automated dependency PRs (`Renovate`) | ➖ | ✅ | ✅ | Group minor/patch updates to avoid PR noise |
+| Automated dependency PRs (`Renovate`) | ➖ | ⚡ | ✅ | Group minor/patch updates to avoid PR noise |
 | SAST & License compliance / SBOM | ➖ | ➖ | ✅ | `Semgrep`/`CodeQL`, `cargo-deny`/`license-checker`, Cosign/SBOM |
 
 ## Pillar 8: CI/CD Pipeline & Release Automation
@@ -71,14 +71,14 @@ Legend: `✅ Required` | `⚡ Recommended` | `➖ Optional / Skip`
 | :--- | :---: | :---: | :---: | :--- |
 | Fast PR CI pipeline (Lint + Typecheck + Test + Build) | ⚡ | ✅ | ✅ | Cached dependencies, < 5–10 min feedback, pinned Action versions |
 | Automated SemVer & Changelog (`Release-Please` / `Changesets`) | ➖ | ⚡ | ✅ | Zero-touch release PRs & Git tags from Conventional Commits |
-| Production containerization (`Dockerfile` + `.dockerignore`) | ➖ | ✅ | ✅ | Multi-stage build, non-root user, minimal base image |
+| Production containerization (`Dockerfile` + `.dockerignore`) | ➖ | ⚡ | ✅ | Multi-stage build, non-root user, minimal base image |
 | Infrastructure as Code (IaC) & Preview Environments | ➖ | ⚡ | ✅ | `Terraform`/`OpenTofu`/`Pulumi`, per-PR preview deploys |
 
 ## Pillar 9: Observability & Day-2 Operations
 | Item | MVP | Prod | Ent | Notes |
 | :--- | :---: | :---: | :---: | :--- |
-| Structured JSON logging with request/trace ID | ➖ | ✅ | ✅ | Never rely on unstructured `console.log`/`print` in production services |
-| Health (`/healthz`) & Readiness (`/readyz`) + Graceful Shutdown | ➖ | ✅ | ✅ | Handle `SIGTERM` cleanly to drain active requests |
+| Structured JSON logging with request/trace ID | ➖ | ⚡ | ✅ | Never rely on unstructured `console.log`/`print` in production services |
+| Health (`/healthz`) & Readiness (`/readyz`) + Graceful Shutdown | ➖ | ⚡ | ✅ | Handle `SIGTERM` cleanly to drain active requests |
 | Error tracking (`Sentry`) | ➖ | ⚡ | ✅ | Capture unhandled exceptions with source maps / release tags |
 | Vendor-neutral telemetry (`OpenTelemetry`) | ➖ | ⚡ | ✅ | OTel SDK instrumentation for traces & metrics |
 
@@ -86,6 +86,6 @@ Legend: `✅ Required` | `⚡ Recommended` | `➖ Optional / Skip`
 | Item | MVP | Prod | Ent | Notes |
 | :--- | :---: | :---: | :---: | :--- |
 | Actionable `README.md` (5-minute quickstart) | ✅ | ✅ | ✅ | Prerequisites, setup, run, test, architecture summary |
-| Root `AGENTS.md` (plus `CLAUDE.md` bridge if Claude Code is used) | ✅ | ✅ | ✅ | Verified commands and module boundaries for coding agents; use the `project-instructions` skill when available |
-| Architecture Decision Records (`docs/adr/`) | ➖ | ✅ | ✅ | Record initial stack & key trade-offs (`0001-initial-stack.md`) |
+| Root `AGENTS.md` | ✅ | ✅ | ✅ | Verified commands and module boundaries for coding agents; use the `project-instructions` skill when available. Add a `CLAUDE.md` bridge only when the user confirms Claude Code is used |
+| Architecture Decision Records (`docs/adr/`) | ➖ | ➖ | ⚡ | Only when the user asks or real alternatives were compared and the user wants the decision recorded (`0001-initial-stack.md`); otherwise put the reason in the commit body |
 | Auto-generated API docs (OpenAPI / Protobuf) | ➖ | ⚡ | ✅ | Keep API schema derived from code or code derived from schema |

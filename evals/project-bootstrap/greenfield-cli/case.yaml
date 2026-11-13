@@ -1,4 +1,4 @@
 schema_version: "1.1"
 name: greenfield-cli
 expected_outcome: |
-  A lightweight (Lean MVP sized) Python CLI project is scaffolded in the empty folder with a modern toolchain: pinned Python version, lockfile, formatter/linter, a passing test, an .env-safe .gitignore and a short AGENTS.md listing real commands. The agent actually runs install, lint and test and reports their results, and does not add enterprise extras (Docker, OpenTelemetry, Renovate, release automation).
+  A lightweight (Lean MVP sized) Python CLI project is scaffolded in the empty folder with a modern toolchain: pinned Python version, lockfile, formatter/linter, a passing test, an .env-safe .gitignore and a short AGENTS.md listing real commands. The agent actually runs install, lint and test and reports their results, and does not add enterprise extras (Docker, OpenTelemetry, Renovate, release automation). It creates no documents beyond README.md and AGENTS.md.

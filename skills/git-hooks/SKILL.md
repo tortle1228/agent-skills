@@ -39,7 +39,7 @@ State the choice and the reason in one or two sentences in your final report: wh
 
 ## Step 2: Place rules by hook stage
 
-Slow hooks get bypassed with `--no-verify`, so separate checks strictly by cost:
+Slow hooks get bypassed with `--no-verify`, so separate checks strictly by cost. **Install only `pre-commit` and `commit-msg` by default;** sections 2, 4, and 5 only on request.
 
 ### 1. `pre-commit`: fast guard on the staged snapshot (target: 3-5 seconds)
 - **Staged-only checks are mandatory**: inspect only Git index objects (`git diff --cached` / `git show :"$file"`, or the stash protection of `stage_fixed` or `lint-staged`) so unstaged working-tree edits are neither checked nor overwritten.
@@ -51,7 +51,7 @@ Slow hooks get bypassed with `--no-verify`, so separate checks strictly by cost:
 - **Auto-fixing hooks must not leak unstaged work**: when a formatter rewrites files, a partially staged file holds both staged and unstaged edits. Naively running the formatter on the working tree and re-adding the file commits the unstaged half; restoring carelessly can delete it. Use a mechanism that isolates the index (`lint-staged` and `pre-commit` stash unstaged changes; with Lefthook `stage_fixed` or a custom script, confirm the behavior in the installed version, or format the index blob and write it back), and demonstrate with a partially staged file that the unstaged edit survives in the working tree and stays out of the commit.
 - **Do not include**: whole-codebase lint, slow integration/E2E tests, or anything that needs the network.
 
-### 2. `prepare-commit-msg`: non-blocking message helper
+### 2. `prepare-commit-msg` (on request): non-blocking message helper
 - **Duplicate guard is mandatory**: exit 0 immediately when the second argument (`$2`) is `merge`, `squash`, or `commit` (`--amend`).
 - If the branch name (for example `feat/PROJ-123-auth`) contains an issue key, append a trailer (`Refs: PROJ-123`) to the message.
 
@@ -60,12 +60,12 @@ Slow hooks get bypassed with `--no-verify`, so separate checks strictly by cost:
 - Validate the **Conventional Commits** format (`<type>[optional (scope)][!]: <description>`) and the subject length counted in UTF-8 characters with `wc -m` (warn above 72, block above 100). Counting characters rather than bytes keeps non-ASCII subjects, such as Korean, from being rejected early.
 - On failure, do not just exit: **print correct examples to `stderr`**.
 
-### 4. `pre-push`: heavier gate before sharing with the remote
+### 4. `pre-push` (on request): heavier gate before sharing with the remote
 - Block direct pushes to protected branches (`main`, `master`, `production`), allowing an exception only through an explicit environment variable such as `ALLOW_PROTECTED_PUSH=1`.
 - Block unpushed commits that contain `WIP:` or unsquashed `fixup!`/`squash!` commits.
 - Place the unit test suite, full type check, and production build check here.
 
-### 5. `post-checkout` and `post-merge`: non-blocking environment sync notices
+### 5. `post-checkout` and `post-merge` (on request): non-blocking environment sync notices
 - After a branch switch (`$3 = 1`) or a completed merge, detect changes between the previous and new HEAD to lockfiles (`package-lock.json`, `pnpm-lock.yaml`, `uv.lock`, `go.sum`, `Cargo.lock`, and so on) and `migrations/`, and print a sync reminder.
 
 ## Step 3: Bootstrap and verify deterministically
@@ -74,11 +74,11 @@ Do not stop at checking that hook files exist; verify behavior with real Git com
 
 1. **Installation and onboarding**:
    - For the native Git strategy, run `sh <this skill's directory>/scripts/install-hooks.sh <target_repo>`.
-   - Record the activation command in the `package.json` `"prepare"` script, a `Makefile` target, or the onboarding section of `README.md` so teammates can enable hooks right after cloning.
+   - Record the activation command in the `package.json` `"prepare"` script or a `Makefile` target so teammates can enable hooks right after cloning.
 2. **Verification checklist**:
    - [ ] Every hook script is executable (`chmod +x`) and `core.hooksPath` (or `.git/hooks/`) is wired up.
    - [ ] Staging a fake secret or conflict marker makes `pre-commit` exit non-zero.
    - [ ] `commit-msg` rejects a malformed message and accepts a valid Conventional Commit.
    - [ ] Local and CI duplication: local hooks can be bypassed with `--no-verify`, so key checks also run in the CI pipeline.
-   - [ ] For `pre-push`, exercise it against a real (local bare) remote, including a first push of a new branch, where the remote SHA is all zeros.
+   - [ ] If `pre-push` was installed, exercise it against a real (local bare) remote, including a first push of a new branch, where the remote SHA is all zeros.
 3. **Report**: list the scenarios you actually ran with their results, the tool choice and reason, how to bypass in an emergency, and what still needs server-side enforcement (branch protection, required CI), since client hooks are optional by design.

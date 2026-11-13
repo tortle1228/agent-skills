@@ -23,9 +23,9 @@ Checks it knows how to place:
 
 - **pre-commit:** staged-only secret scan (gitleaks when installed, built-in patterns otherwise), `.env` and key files, conflict markers, large files, case collisions, and lint on changed files. When the skill adds an auto-fixing formatter, it keeps unstaged edits out of the commit and proves it with a partially staged file.
 - **commit-msg:** Conventional Commits with subject length counted in characters, so Korean and other non-ASCII subjects are not rejected early.
-- **prepare-commit-msg:** issue keys from the branch name added as a trailer.
-- **pre-push:** protected branches with an explicit override, `WIP`/`fixup!` commits, and the first push of a new branch.
-- **post-checkout / post-merge:** reminders when lockfiles or migrations changed.
+- **prepare-commit-msg (on request):** issue keys from the branch name added as a trailer.
+- **pre-push (on request):** protected branches with an explicit override, `WIP`/`fixup!` commits, and the first push of a new branch.
+- **post-checkout / post-merge (on request):** reminders when lockfiles or migrations changed.
 
 Invoke it as `$git-hooks` in Codex or `/git-hooks` in Claude Code, or just describe the task. The [hook catalog](references/hook-catalog.md) covers each hook's arguments and common pitfalls.
 

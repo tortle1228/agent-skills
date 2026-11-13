@@ -61,7 +61,7 @@ Classify the request into one of four workflows and load only the files it needs
 3. **Draft a minimal architecture**:
    - Draft root `AGENTS.md` (**40–120 lines**) from [templates.md](assets/templates.md): exact install/build/lint/**single-test** commands, stack anchors, module boundaries, 3–5 project gotchas, and doc pointers. If library versions or current conventions matter, search the web or Context7 when available rather than relying on memory.
    - Leave out `tree` output, generic SOLID/clean-code clichés, and pasted boilerplate; they cost tokens every turn and rot.
-   - Add thin bridges (`CLAUDE.md` containing `@AGENTS.md`, a `.gitignore` entry for `*.local.md`, optional scoped rules) per [multi-agent-matrix.md](references/multi-agent-matrix.md).
+   - Add thin bridges per [multi-agent-matrix.md](references/multi-agent-matrix.md) only for tools Step 2 showed the team uses: for Claude Code, a `CLAUDE.md` containing `@AGENTS.md` and a `.gitignore` entry for `*.local.md`. Add scoped rules only when asked.
 4. **Verify**: Run the auditor on the workspace and fix any warnings or errors before finishing.
 
 ### Mode 2: Audit & Diet (`audit`)
