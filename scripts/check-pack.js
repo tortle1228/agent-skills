@@ -22,7 +22,7 @@ try {
   const cli = path.join(unpacked, 'bin/agent-skills.js');
   assert.equal(execFileSync(process.execPath, [cli, '--version'], { encoding: 'utf8' }).trim(), version);
   const skills = execFileSync(process.execPath, [cli, 'list'], { encoding: 'utf8' }).trim().split('\n');
-  assert.deepEqual(skills, ['agent-code-review', 'create-verification', 'git-hooks', 'project-bootstrap', 'project-instructions', 'readme-writer', 'verification']);
+  assert.deepEqual(skills, ['agent-code-review', 'create-verification', 'git-hooks', 'project-bootstrap', 'project-instructions', 'readme-writer', 'verification', 'work-tracking']);
   // Run the packed installer, with a temporary home injected only into this test process.
   const home = path.join(temporary, 'home');
   const preload = path.join(temporary, 'home.mjs');

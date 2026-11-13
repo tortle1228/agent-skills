@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: existing-roadmap-kept
+expected_outcome: |
+  The repo already has ROADMAP.md and an AGENTS.md with a Work tracking section. The agent finds and reports the existing rule, does not overwrite or duplicate it, and creates no new documents.
+context:
+  scaffold_script: place-files.sh

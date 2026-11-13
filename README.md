@@ -10,11 +10,12 @@ Agent skills that cover the everyday engineering around your code: starting proj
 | --- | --- |
 | [project-bootstrap](skills/project-bootstrap/README.md) | Start a project or audit a repo's setup against a 10-pillar checklist, scaled to the project; compare stacks and record the decision |
 | [project-instructions](skills/project-instructions/README.md) | Create, slim down, and sync `AGENTS.md`, `CLAUDE.md`, and other agent rule files, with a static auditor for stale commands and paths |
-| [git-hooks](skills/git-hooks/README.md) | Set up fast pre-commit, commit-msg, and pre-push hooks that teammates share, verified with real commits |
+| [git-hooks](skills/git-hooks/README.md) | Set up fast pre-commit and commit-msg hooks that teammates share (pre-push and others on request), verified with real commits |
 | [agent-code-review](skills/agent-code-review/README.md) | Review a change with an isolated reviewer and get a plain-language ship-or-fix report, optionally with a capped fix loop |
 | [readme-writer](skills/readme-writer/README.md) | Write, improve, or translate READMEs from repository evidence, with worked examples and templates |
 | [verification](skills/verification/README.md) | Require fresh evidence before the agent claims work is done, fixed, or passing, with a PASS/FAIL/BLOCKED/SKIP verdict |
 | [create-verification](skills/create-verification/README.md) | Generate a project-local `verify-<app>` skill that launches and drives the app, and prove it by running it once |
+| [work-tracking](skills/work-tracking/README.md) | Decide once whether work lives in GitHub Issues, one `ROADMAP.md`, or commits only, and record it in a short `AGENTS.md` section |
 
 Each skill works on its own. project-bootstrap hands Git hooks and agent instructions to git-hooks and project-instructions when they are installed, and does a minimal version itself when they are not. verification uses a `verify-*` skill made by create-verification when the project has one, and works without it.
 

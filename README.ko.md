@@ -10,11 +10,12 @@
 | --- | --- |
 | [project-bootstrap](skills/project-bootstrap/README.md) | 프로젝트를 시작하거나 저장소 셋업을 10대 영역 기준으로 규모에 맞게 점검합니다. 스택을 비교하고 결정을 기록합니다 |
 | [project-instructions](skills/project-instructions/README.md) | `AGENTS.md`, `CLAUDE.md` 등 에이전트 규칙 파일을 만들고, 줄이고, 맞춥니다. 낡은 명령과 경로를 찾는 정적 감사기가 들어 있습니다 |
-| [git-hooks](skills/git-hooks/README.md) | 팀이 함께 쓰는 빠른 pre-commit, commit-msg, pre-push 훅을 세팅하고 실제 커밋으로 검증합니다 |
+| [git-hooks](skills/git-hooks/README.md) | 팀이 함께 쓰는 빠른 pre-commit, commit-msg 훅을 세팅하고(pre-push 등은 요청 시) 실제 커밋으로 검증합니다 |
 | [agent-code-review](skills/agent-code-review/README.md) | 분리된 리뷰어로 변경을 리뷰하고 쉬운 말로 된 배포/수정 판정을 받습니다. 횟수 제한이 있는 수정 루프도 지원합니다 |
 | [readme-writer](skills/readme-writer/README.md) | 저장소 근거를 바탕으로 README를 쓰고, 고치고, 번역합니다. 완성 예시와 템플릿이 들어 있습니다 |
 | [verification](skills/verification/README.md) | 에이전트가 작업을 끝났다, 고쳤다, 통과한다고 주장하기 전에 새로 실행한 증거를 요구하고 PASS/FAIL/BLOCKED/SKIP으로 판정합니다 |
 | [create-verification](skills/create-verification/README.md) | 앱을 띄우고 조작하는 프로젝트 로컬 `verify-<app>` 스킬을 만들고, 한 번 직접 실행해 증명합니다 |
+| [work-tracking](skills/work-tracking/README.md) | 작업을 GitHub Issues, `ROADMAP.md` 한 파일, 커밋만 중 어디에 둘지 한 번 정하고 `AGENTS.md`의 짧은 섹션에 기록합니다 |
 
 각 스킬은 혼자서도 동작합니다. project-bootstrap은 git-hooks와 project-instructions가 설치되어 있으면 Git 훅과 에이전트 지침을 그쪽에 맡기고, 없으면 최소한만 직접 처리합니다. verification은 프로젝트에 create-verification이 만든 `verify-*` 스킬이 있으면 그것을 쓰고, 없어도 동작합니다.
 

@@ -24,7 +24,7 @@ async function cli(home) {
 test('every skill folder is listed and installable', async t => {
   const { home } = await fixture(t);
   const skills = await listSkills(root);
-  assert.deepEqual(skills, ['agent-code-review', 'create-verification', 'git-hooks', 'project-bootstrap', 'project-instructions', 'readme-writer', 'verification']);
+  assert.deepEqual(skills, ['agent-code-review', 'create-verification', 'git-hooks', 'project-bootstrap', 'project-instructions', 'readme-writer', 'verification', 'work-tracking']);
   for (const name of skills) {
     const target = targetFor(home, 'claude-code', name);
     assert.equal(await install(root, name, target, '0.1.0'), 'Installed');

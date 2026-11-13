@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: issues-requested-no-gh-writes
+expected_outcome: |
+  The user wants GitHub Issues. The agent writes the issues-method Work tracking section (roadmap, backlog, when-needed labels, at most 8 lines) to AGENTS.md. It does not create issues or labels and does not create roadmap or backlog files. It says what it could not verify.
+context:
+  scaffold_script: place-files.sh

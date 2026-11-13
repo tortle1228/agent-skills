@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: commits-only-new-repo
+expected_outcome: |
+  No tracker signal exists (no GitHub remote, no ROADMAP.md, no docs). The agent inspects the repo, chooses the commits-only method, and writes a short Work tracking section (at most 8 lines) to a new minimal AGENTS.md. It creates no ROADMAP, ADR, or research documents and no issues or labels.
+context:
+  scaffold_script: place-files.sh

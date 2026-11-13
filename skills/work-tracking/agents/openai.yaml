@@ -1,0 +1,4 @@
+interface:
+  display_name: "Work Tracking"
+  short_description: "Record how a repo tracks work: issues, ROADMAP.md, or commits"
+  default_prompt: "Use $work-tracking to decide and record where this repository's planned work and decisions live."
